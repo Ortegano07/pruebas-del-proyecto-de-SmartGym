@@ -1,0 +1,46 @@
+Entorno virtual 
+
+Es un módulo incorporado en Python (desde la versión 3.3) que permite crear entornos virtuales 
+aislados. Sirve para gestionar dependencias de proyectos por separado, evitando conflictos 
+entre librerías y versiones instaladas en el sistema global. Un entorno virtual incluye 
+su propio ejecutable de Python y gestor de paquetes (pip). 
+
+Puntos Clave y Uso:
+Sinónimos/Herramientas Relacionadas: A menudo se le llama genéricamente "entorno virtual" 
+o "virtual environment". virtualenv es una herramienta similar pero externa, mientras 
+que venv es parte de la biblioteca estándar de Python.
+
+
+Crear un entorno: 
+python -m venv <nombre_del_entorno>.
+
+Activar el entorno:
+Windows: <nombre_del_entorno>\Scripts\activate.
+macOS/Linux: source <nombre_del_entorno>/bin/activate.
+
+Desactivar: Escribir deactivate en la terminal. 
+
+El uso de vnev de W3Schools permite que cada proyecto tenga sus propias bibliotecas sin 
+interferir con otros, lo que es esencial para el desarrollo profesional y la organización. 
+Puede encontrar más detalles en la documentación oficial de Python. 
+
+Ejemplo de uso:
+Crear: python -m venv venv
+Activar (Linux/macOS): source venv/bin/activate
+Instalar librerías: pip install requests
+Desactivar: deactivate 
+
+
+
+
+
+
+
+
+Se activa en su carpeta con \Scripts\Activate.ps1, es decir, 
+
+c:\Users\admin\Desktop\Laboratorio1\smartgym-api\venv\Scripts\Activate.ps1
+
+Se DESACTIVA escribiendo en la Terminal 
+
+deactivate
