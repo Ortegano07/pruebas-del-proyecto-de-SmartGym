@@ -6,8 +6,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.core import settings
 from app.models import Base, engine
+from app.api.v1 import api_router
 
-# --- Crear tablas automáticamente  ---
+
 # --- Definir el ciclo de vida (Lifespan) ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -41,9 +42,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-# En producción usaríamos Alembic para migraciones
-
+# --- Incluir todos los routers  ---
+app.include_router(api_router, prefix="/api/v1")
 
 # --- Endpoint raíz ---
 @app.get("/")

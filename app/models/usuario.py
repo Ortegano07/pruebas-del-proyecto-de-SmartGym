@@ -63,7 +63,7 @@ class Usuario(Base):
         back_populates = "usuarios"     # Atributo en Rol que apunta de vuelta a Usuario
         )
     
-    cliente = relationship(
+    """cliente = relationship(
         "Cliente", 
         back_populates = "usuario", 
         uselist=False
@@ -73,4 +73,4 @@ class Usuario(Base):
         "Entrenador", 
         back_populates = "usuario", 
         uselist = False
-        )
+        )"""
