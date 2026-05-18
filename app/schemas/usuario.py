@@ -10,6 +10,7 @@ class UsuarioCreate(BaseModel):
     apellido: str
     rol_id: int
     
+    # Clase de configuracion para Pydantic para configurar el comportamiento del schema 
     class Config:
         json_schema_extra = {
             "example": {

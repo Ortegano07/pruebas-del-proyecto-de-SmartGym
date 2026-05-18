@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ```markdown
 # 🏋️ SmartGym API
 
@@ -188,3 +189,6 @@ Profesor: Jonathan Falcon
 Este proyecto es parte de una actividad académica de la UCLA. Todos los derechos reservados © 2026.
 
 ```
+=======
+# pruebas-del-proyecto-de-SmartGym
+>>>>>>> adrian/main

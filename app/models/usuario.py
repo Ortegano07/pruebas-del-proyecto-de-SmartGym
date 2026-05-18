@@ -53,7 +53,7 @@ class Usuario(Base):
     
     created_at = Column(
         DateTime, 
-        default = datetime.utcnow
+        default = datetime.now()
         )
 
     # Relaciones

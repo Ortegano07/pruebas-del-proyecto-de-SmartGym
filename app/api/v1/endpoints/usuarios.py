@@ -44,7 +44,7 @@ def listar_usuarios(
     skip: int = 0,
     limit: int = 10,
     db: Session = Depends(get_db)
-):
+    ):
     """Listar usuarios con paginación"""
     return db.query(Usuario).offset(skip).limit(limit).all()
 
