@@ -15,4 +15,4 @@ class Maquina(Base):
     
     # Relación para cumplir con la integridad referencial
     categoria = relationship("CategoriaMaquina", back_populates="maquinas")
-    # tickets = relationship("TicketMantenimiento", back_populates="maquina")
+    tickets = relationship("TicketMantenimiento", back_populates="maquina")

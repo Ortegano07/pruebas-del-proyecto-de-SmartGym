@@ -14,6 +14,7 @@ class CategoriaMaquina(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     
+    maquinas = relationship("Maquina", back_populates="categoria", cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<Categoria {self.nombre}>"
