@@ -10,7 +10,10 @@ class UsuarioCreate(BaseModel):
     apellido: str
     rol_id: int
     
+<<<<<<< HEAD
     # Clase de configuracion para Pydantic para configurar el comportamiento del schema 
+=======
+>>>>>>> adrian/main
     class Config:
         json_schema_extra = {
             "example": {
