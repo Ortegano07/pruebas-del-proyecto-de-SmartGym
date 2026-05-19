@@ -6,7 +6,7 @@ from app.api.v1.endpoints import deportivo
 from app.api.v1.endpoints import mantenimiento
 from fastapi import APIRouter
 
-from app.api.v1.endpoints import roles, usuarios, auth, maquinas, categorias_maquinas
+from app.api.v1.endpoints import roles, usuarios, auth, maquinas, categorias_maquinas, reservas
     #auth,
     #usuarios,
     #maquinas,
@@ -31,7 +31,7 @@ api_router.include_router(maquinas.router, tags=["Máquinas"])
 api_router.include_router(categorias_maquinas.router, tags=["Categorías de Máquinas"])
 api_router.include_router(mantenimiento.router, tags=["Mantenimiento"])
 api_router.include_router(deportivo.router, tags=["Deportivo"])
-#api_router.include_router(reservas.router, tags=["Reservas"])
+api_router.include_router(reservas.router, tags=["Reservas"])
 #api_router.include_router(acceso.router, tags=["Acceso"])
 #api_router.include_router(finanzas.router, tags=["Finanzas"])
 #api_router.include_router(tienda.router, tags=["Tienda"])

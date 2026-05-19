@@ -11,7 +11,7 @@ from app.models.usuario import Usuario
 #from app.models.entrenador import Entrenador
 from app.models.disciplina import Disciplina
 from app.models.sesion import Sesion
-#from app.models.reserva import Reserva
+from app.models.reserva import Reserva
 #from app.models.control_acceso import ControlAcceso
 #from app.models.plan_suscripcion import PlanSuscripcion
 #from app.models.membresia import Membresia

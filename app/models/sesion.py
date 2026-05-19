@@ -17,4 +17,4 @@ class Sesion(Base):
     
     # Relaciones
     disciplina = relationship("Disciplina", back_populates="sesiones")
-    # reservas = relationship("Reserva", back_populates="sesion")
+    reservas = relationship("Reserva", back_populates="sesion")
