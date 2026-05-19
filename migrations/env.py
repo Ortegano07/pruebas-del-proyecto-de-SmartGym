@@ -10,7 +10,11 @@ from alembic import context
 from app.models.database import Base
 from app.core.config import settings
 
+<<<<<<< HEAD
 from app.models import Rol, Usuario #, Cliente, Entrenador,
+=======
+from app.models import Rol, Usuario, Maquina, Categoria #, Cliente, Entrenador,
+>>>>>>> e44325b (feat: Actualizacion completa)
  #   Disciplina, SesionProgramada, Reserva,
  #   ControlAcceso, PlanSuscripcion, Membresia, Pago,
  #   CategoriaMaquina, Maquina, TicketMantenimiento,

@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e44325b (feat: Actualizacion completa)
 ```markdown
 # 🏋️ SmartGym API
 
@@ -72,7 +75,11 @@ API RESTful para la gestión integral del gimnasio SmartGym. Centraliza operacio
 ### 1. Clonar el repositorio
 
 ```bash
+<<<<<<< HEAD
 git clone https://github.com/LMoreno07/ProyectoLaboratorio1.git
+=======
+git clone https://github.com/TU-USUARIO/smartgym-api.git
+>>>>>>> e44325b (feat: Actualizacion completa)
 cd smartgym-api
 ```
 
@@ -188,7 +195,11 @@ Profesor: Jonathan Falcon
 
 Este proyecto es parte de una actividad académica de la UCLA. Todos los derechos reservados © 2026.
 
+<<<<<<< HEAD
 ```
 =======
 # pruebas-del-proyecto-de-SmartGym
 >>>>>>> adrian/main
+=======
+```
+>>>>>>> e44325b (feat: Actualizacion completa)
