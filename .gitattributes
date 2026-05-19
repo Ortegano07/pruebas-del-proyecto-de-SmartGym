@@ -1,0 +1,28 @@
+# .gitattributes
+# Configuración de saltos de línea para el proyecto
+
+# Archivos de texto: Auto-detección de fin de línea
+* text=auto
+
+# Archivos Python: Forzar LF (Linux-friendly)
+*.py text eol=lf
+
+# Archivos de configuración: Forzar LF
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.cfg text eol=lf
+*.ini text eol=lf
+*.env text eol=lf
+
+# Archivos de shell: Forzar LF
+*.sh text eol=lf
+
+# Archivos de documentación: Auto
+*.md text
+*.txt text
+
+# Archivos binarios: No modificar
+*.db binary
+*.png binary
+*.jpg binary

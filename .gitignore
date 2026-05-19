@@ -1,0 +1,39 @@
+# --- Entorno virtual de Python ---
+.venv/
+venv/
+env/
+.env
+*.egg-info/
+
+# --- Archivos compilados de Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# --- Bases de datos locales ---
+*.db
+*.sqlite3
+
+# --- Archivos de VS Code ---
+.vscode/
+*.code-workspace
+
+# --- Archivos de sistema ---
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+
+# --- Variables de entorno (contiene secretos) ---
+.env
+.env.local
+.env.production
+
+# --- Docker ---
+docker-compose.override.yml
+
+# --- Cobertura de pruebas ---
+htmlcov/
+.coverage
+coverage.xml
