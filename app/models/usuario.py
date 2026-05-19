@@ -53,15 +53,7 @@ class Usuario(Base):
     
     created_at = Column(
         DateTime, 
-<<<<<<< HEAD
         default = datetime.utcnow
-=======
-<<<<<<< HEAD
-        default = datetime.now()
-=======
-        default = datetime.utcnow
->>>>>>> adrian/main
->>>>>>> 72b2b31e65c4e9ed1a165be28bd25948483dc50c
         )
 
     # Relaciones

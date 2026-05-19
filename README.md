@@ -1,12 +1,4 @@
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> adrian/main
-```markdown
->>>>>>> 72b2b31e65c4e9ed1a165be28bd25948483dc50c
 # 🏋️ SmartGym API
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)
@@ -204,15 +196,3 @@ Profesor: Jonathan Falcon
 📄 Licencia
 
 Este proyecto es parte de una actividad académica de la UCLA. Todos los derechos reservados © 2026.
-
-<<<<<<< HEAD
-```
-<<<<<<< HEAD
-=======
-=======
-# pruebas-del-proyecto-de-SmartGym
->>>>>>> adrian/main
-=======
-```
->>>>>>> adrian/main
->>>>>>> 72b2b31e65c4e9ed1a165be28bd25948483dc50c

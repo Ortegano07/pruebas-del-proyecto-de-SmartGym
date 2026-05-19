@@ -43,16 +43,7 @@ def crear_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
 def listar_usuarios(
     skip: int = 0,
     limit: int = 10,
-    db: Session = Depends(get_db)
-<<<<<<< HEAD
-):
-=======
-<<<<<<< HEAD
-    ):
-=======
-):
->>>>>>> adrian/main
->>>>>>> 72b2b31e65c4e9ed1a165be28bd25948483dc50c
+    db: Session = Depends(get_db)):
     """Listar usuarios con paginación"""
     return db.query(Usuario).offset(skip).limit(limit).all()
 
