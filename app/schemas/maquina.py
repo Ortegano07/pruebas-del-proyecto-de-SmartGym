@@ -1,20 +1,17 @@
 from pydantic import BaseModel
-from datetime import date
-from app.models.maquina import EstadoMaquina
+from typing import Optional
 
 class MaquinaBase(BaseModel):
-    categoria_id: int
     nombre: str
-    descripcion_tecnica: str
-    fecha_adquisicion: date
-    ultima_revision: date
+    codigo_serial: str
+    estado: Optional[str] = "disponible"
+    categoria_id: int
 
 class MaquinaCreate(MaquinaBase):
     pass
 
-class MaquinaOut(MaquinaBase):
+class MaquinaResponse(MaquinaBase):
     id: int
-    estado_operativo: EstadoMaquina
 
     class Config:
         from_attributes = True

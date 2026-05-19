@@ -16,13 +16,8 @@ from app.models.usuario import Usuario
 #from app.models.plan_suscripcion import PlanSuscripcion
 #from app.models.membresia import Membresia
 #from app.models.pago import Pago
-<<<<<<< HEAD
-#from app.models.categoria_maquina import CategoriaMaquina
-#from app.models.maquina import Maquina
-=======
-from app.models.categorias_maquinas import Categoria
+from app.models.categorias_maquinas import CategoriaMaquina
 from app.models.maquina import Maquina
->>>>>>> e44325b (feat: Actualizacion completa)
 #from app.models.ticket_mantenimiento import TicketMantenimiento
 #from app.models.producto_tienda import ProductoTienda
 #from app.models.venta_tienda import VentaTienda

@@ -3,20 +3,15 @@ services:
   db:
     image: postgres:15-alpine
     container_name: smartgym-db
-<<<<<<< HEAD
-    restart: unless-stopped       # Reinicia automáticamente si falla
-=======
+
     restart: unless-stopped # Reinicia automáticamente si falla
->>>>>>> e44325b (feat: Actualizacion completa)
+
     environment:
       # Se pueden listar con guion e =, es decir   - POSTGRES_USER=${POSTGRES_USER:-smartgym_user}
       # o como diccionario CLAVE: VALOR, es decir  POSTGRES_USER: ${POSTGRES_USER:-smartgym_user}
       # NO MEZCLAR en el mismo bloque :)
-<<<<<<< HEAD
-      POSTGRES_USER: ${POSTGRES_USER:-smartgym_user}      # Toma valor del .env, si no existe, usa los sugeridos
-=======
+
       POSTGRES_USER: ${POSTGRES_USER:-smartgym_user} # Toma valor del .env, si no existe, usa los sugeridos
->>>>>>> e44325b (feat: Actualizacion completa)
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-smartgym_pass}
       POSTGRES_DB: ${POSTGRES_DB:-smartgym_db}
       #POSTGRES_PORT: ${POSTGRES_PORT:-5432}
@@ -26,15 +21,9 @@ services:
     volumes:
       - smartgym_data:/var/lib/postgresql/data
       #- ./docker/init.sql:/docker-entrypoint-initdb.d/01-init.sql
-<<<<<<< HEAD
-    
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"] # doble $$ para que Docker use la variable dentro del contenedor
-=======
 
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ] # doble $$ para que Docker use la variable dentro del contenedor
->>>>>>> e44325b (feat: Actualizacion completa)
       interval: 10s
       timeout: 5s
       retries: 5
@@ -49,11 +38,7 @@ services:
       - "${PORT:-8000}:8000"
     environment:
       # Pasamos las variables al contenedor de la API para que BaseSettings las lea
-      #POSTGRES_USER: ${POSTGRES_USER:-smartgym_user}
-      #POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-smartgym_pass}
-      #POSTGRES_DB: ${POSTGRES_DB:-smartgym_db}
       POSTGRES_HOST: db # Nombre del servicio de arriba, de la base de datos
-      #DATABASE_URL: ${DATABASE_URL:-postgresql://smartgym_user:smartgym_pass@db:5432/smartgym_db}
       DATABASE_URL: postgresql://${POSTGRES_USER:-smartgym_user}:${POSTGRES_PASSWORD:-smartgym_pass}@db:5432/${POSTGRES_DB:-smartgym_db}
       PYTHONPATH: /app
       SECRET_KEY: ${SECRET_KEY:-a7f3b9c2d4e6f8a1b3c5d7e9f0a2b4c6}
@@ -61,21 +46,15 @@ services:
       ACCESS_TOKEN_EXPIRE_MINUTES: 30
     depends_on:
       db:
-<<<<<<< HEAD
-        condition: service_healthy    # Espera a que DB esté saludable/lista
-    volumes:
-      - ./app:/app/app    # Monta /app en /app/app y permite que el --reload funcione
-      #- ./.env:/app/.env        # Monta el archivo .env
-    env_file:
-      - .env                    # Carga las claves verdaderas
-=======
+
         condition: service_healthy # Espera a que DB esté saludable/lista
     volumes:
       - ./app:/app/app # Monta /app en /app/app y permite que el --reload funcione
+      - ./migrations:/app/migrations # Sincroniza la carpeta de migraciones
+      - ./alembic.ini:/app/alembic.ini # Sincroniza la configuración de alembic
       #- ./.env:/app/.env        # Monta el archivo .env
     env_file:
       - .env # Carga las claves verdaderas
->>>>>>> e44325b (feat: Actualizacion completa)
     # Comando de inicio: 
     # 1. 'sleep 5' da tiempo a Postgres para que termine de inicializarse.
     # 2. 'alembic upgrade head' aplica automáticamente los cambios de tablas en la DB.
@@ -88,8 +67,4 @@ services:
 volumes:
   smartgym_data:
     name: mi_smartgym_data
-<<<<<<< HEAD
     driver: local
-=======
-    driver: local
->>>>>>> e44325b (feat: Actualizacion completa)

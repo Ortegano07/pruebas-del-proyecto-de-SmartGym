@@ -10,17 +10,7 @@ from alembic import context
 from app.models.database import Base
 from app.core.config import settings
 
-<<<<<<< HEAD
-from app.models import Rol, Usuario #, Cliente, Entrenador,
-=======
-from app.models import Rol, Usuario, Maquina, Categoria #, Cliente, Entrenador,
->>>>>>> e44325b (feat: Actualizacion completa)
- #   Disciplina, SesionProgramada, Reserva,
- #   ControlAcceso, PlanSuscripcion, Membresia, Pago,
- #   CategoriaMaquina, Maquina, TicketMantenimiento,
- #   ProductoTienda, VentaTienda, DetalleVenta,
-  #  EvaluacionBiometrica
-#)
+from app.models import Rol, Usuario, CategoriaMaquina, Maquina
 # Agregar la raíz del proyecto al PYTHONPATH
 # Dentro de Docker, la carpeta de trabajo es /app/
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))

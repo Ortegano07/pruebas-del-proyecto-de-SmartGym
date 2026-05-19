@@ -1,30 +1,18 @@
-from sqlalchemy import Column, Integer, String, Enum, ForeignKey, Date, DateTime
-from app.models.database import Base
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
-import enum
-
-
-class EstadoMaquina(enum.Enum):
-    activa = "Activa"
-    mantenimiento = "Mantenimiento"
-    fuera_servicio = "Fuera de servicio"
+from app.models.database import Base
 
 class Maquina(Base):
     __tablename__ = "maquinas"
-    
+
     id = Column(Integer, primary_key=True, index=True)
-    categoria_id = Column(Integer, ForeignKey("categorias_maquinas.id"), nullable=False)
-    nombre = Column(String, nullable=False)
-    descripcion_tecnica = Column(String, nullable=False)
-    estado_operativo = Column(Enum(EstadoMaquina), nullable=False)
-    fecha_adquisicion = Column(Date, nullable=False)
-    ultima_revision = Column(Date, nullable=False)
-
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
-
-    categoria = relationship("Categoria", back_populates="maquinas")
+    nombre = Column(String(100), nullable=False)
+    codigo_serial = Column(String(50), unique=True, nullable=False, index=True)
+    # Estados definidos: disponible, en_mantenimiento, fuera_de_servicio
+    estado = Column(String(20), default="disponible") 
     
-    def __repr__(self):
-        return f"<Maquina {self.nombre}>"
+    categoria_id = Column(Integer, ForeignKey("categorias_maquinas.id"), nullable=False)
+    
+    # Relación para cumplir con la integridad referencial
+    categoria = relationship("CategoriaMaquina", back_populates="maquinas")
+    # tickets = relationship("TicketMantenimiento", back_populates="maquina")

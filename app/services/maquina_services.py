@@ -1,26 +1,25 @@
 from sqlalchemy.orm import Session
-from app.models.maquina import Maquina, EstadoMaquina
-from fastapi import HTTPException, status
-from datetime import date
-
+from fastapi import HTTPException
+from app.models.maquina import Maquina
+from app.models.categorias_maquinas import CategoriaMaquina
 from app.schemas.maquina import MaquinaCreate
 
-def registrar_maquina(db: Session, maquina_in: MaquinaCreate):
-    nueva_maquina = Maquina(
-        nombre=maquina_in.nombre,
-        descripcion_tecnica=maquina_in.descripcion_tecnica,
-        categoria_id=maquina_in.categoria_id,
-        estado_operativo=EstadoMaquina.activa,
-        fecha_adquisicion=maquina_in.fecha_adquisicion,
-        ultima_revision=maquina_in.ultima_revision
-    )
-    db.add(nueva_maquina)
+def crear_maquina(db: Session, maquina: MaquinaCreate):
+    # Validar que la categoría exista
+    cat = db.query(CategoriaMaquina).filter(CategoriaMaquina.id == maquina.categoria_id).first()
+    if not cat:
+        raise HTTPException(status_code=404, detail="Categoría no encontrada")
+    
+    # Validar que no exista el serial
+    existe = db.query(Maquina).filter(Maquina.codigo_serial == maquina.codigo_serial).first()
+    if existe:
+        raise HTTPException(status_code=400, detail="Ya existe una máquina con ese serial")
+        
+    nueva = Maquina(**maquina.dict())
+    db.add(nueva)
     db.commit()
-    db.refresh(nueva_maquina)
-    return nueva_maquina
+    db.refresh(nueva)
+    return nueva
 
-def listar_maquinas(db: Session, estado: str = None):
-    query = db.query(Maquina)
-    if estado:
-        query = query.filter(Maquina.estado_operativo == estado)
-    return query.all()
+def obtener_maquinas(db: Session):
+    return db.query(Maquina).all()
