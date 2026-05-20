@@ -3,7 +3,7 @@ Modelo ORM (Objets relationship Mapping) para la tabla 'usuarios'
 """
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
-from app.models import Base
+from app.models.database import Base
 from datetime import datetime
 
 class Usuario(Base):
@@ -63,14 +63,13 @@ class Usuario(Base):
         back_populates = "usuarios"     # Atributo en Rol que apunta de vuelta a Usuario
         )
     
-    """cliente = relationship(
+    cliente = relationship(
         "Cliente", 
         back_populates = "usuario", 
         uselist=False
         )
-    
     entrenador = relationship(
         "Entrenador", 
         back_populates = "usuario", 
         uselist = False
-        )"""
+        )
