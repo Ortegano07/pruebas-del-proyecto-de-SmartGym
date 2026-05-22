@@ -1,0 +1,88 @@
+smartgym-api/
+│
+├── app/                              # Código fuente de la aplicación
+│   ├── __init__.py
+│   ├── main.py                       # Punto de entrada: crea app FastAPI
+│   │
+│   ├── api/                          # Capa de presentación (HTTP)
+│   │   ├── __init__.py
+│   │   └── v1/                       # Versionado de API (buena práctica)
+│   │       ├── __init__.py
+│   │       └── endpoints/            # Un archivo por módulo
+│   │           ├── __init__.py
+│   │           ├── auth.py           # POST /api/v1/auth/login
+│   │           ├── usuarios.py       # CRUD usuarios
+│   │           ├── clientes.py       # CRUD clientes
+│   │           ├── maquinas.py       # CRUD máquinas
+│   │           ├── mantenimiento.py  # Tickets mantenimiento
+│   │           ├── deportivo.py      # Disciplinas + Sesiones
+│   │           ├── reservas.py       # Reservas de clases
+│   │           ├── acceso.py         # POST /api/v1/accesos/entrada
+│   │           ├── finanzas.py       # Planes, membresías, pagos
+│   │           └── tienda.py         # Productos + Ventas
+│   │
+│   ├── models/                       # Capa de datos - SQLAlchemy ORM
+│   │   ├── __init__.py
+│   │   ├── database.py               # Conexión BD, engine, SessionLocal
+│   │   ├── rol.py
+│   │   ├── usuario.py
+│   │   ├── cliente.py
+│   │   ├── entrenador.py
+│   │   ├── disciplina.py
+│   │   ├── sesion.py
+│   │   ├── reserva.py
+│   │   ├── control_acceso.py
+│   │   ├── plan_suscripcion.py
+│   │   ├── membresia.py
+│   │   ├── pago.py
+│   │   ├── categoria_maquina.py
+│   │   ├── maquina.py
+│   │   ├── ticket_mantenimiento.py
+│   │   ├── producto_tienda.py
+│   │   ├── venta_tienda.py
+│   │   ├── detalle_venta.py
+│   │   └── evaluacion_biometrica.py
+│   │
+│   ├── schemas/                      # Pydantic: validación de datos entrada/salida
+│   │   ├── __init__.py
+│   │   ├── usuario.py
+│   │   ├── cliente.py
+│   │   ├── sesion.py
+│   │   ├── reserva.py
+│   │   ├── membresia.py
+│   │   ├── pago.py
+│   │   ├── categoria_maquina.py
+│   │   ├── maquina.py
+│   │   ├── ticket_mantenimiento.py
+│   │   ├── producto_tienda.py
+│   │   ├── venta_tienda.py
+│   │   ├── detalle_venta.py
+│   │   └── evaluacion_biometrica.py
+│   │
+│   ├── services/                     # Capa de lógica de negocio
+│   │   ├── __init__.py
+│   │   ├── auth_service.py           # Verificar credenciales, generar JWT
+│   │   ├── usuario_service.py
+│   │   ├── reserva_service.py        # Validar cupos, solapamiento
+│   │   ├── membresia_service.py      # Validar vigencia
+│   │   ├── tienda_service.py         # Validar stock, descontar inventario
+│   │   └── ...
+│   │
+│   ├── core/                         # Configuración transversal
+│   │   ├── __init__.py
+│   │   ├── config.py                 # Variables de entorno (DB, JWT, etc.)
+│   │   ├── security.py               # Hashear password, crear/verificar JWT
+│   │   ├── dependencies.py           # get_db, get_current_user, require_role
+│   │   └── exceptions.py             # Excepciones HTTP personalizadas
+│   │
+│   └── utils/                        # Utilidades varias
+│       ├── __init__.py
+│       └── error_responses.py        # Estructura JSON de errores (RNF6)
+│
+├── docker/                           # Configuración Docker
+│   └── init.sql                      # Script SQL para crear tablas
+│
+├── docker-compose.yml                # Orquesta API + PostgreSQL
+├── Dockerfile                        # Imagen de la API
+├── requirements.txt                  # Dependencias Python
+└── .env.example                      # Ejemplo de variables de entorno

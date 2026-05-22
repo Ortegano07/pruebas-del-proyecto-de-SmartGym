@@ -1,0 +1,154 @@
+¿Qué necesita el contenedor para funcionar?
+
+Archivo/Carpeta		¿Se necesita en ejecución?	¿Cómo llega al contenedor?
+app/				✅ Sí (código Python)		COPY . . en Dockerfile
+migrations/			✅ Sí (Alembic)				COPY . . en Dockerfile
+alembic.ini			✅ Sí (Alembic)				COPY . . en Dockerfile
+requirements.txt	❌ Solo en build				Se usa en pip install
+Dockerfile			❌ Solo en build				No entra al contenedor
+docker-compose.yml	❌ Solo en build				No entra al contenedor
+.env				✅ Sí (variables)			Se lee al iniciar
+
+Conclusión: COPY . . en el Dockerfile YA copia migrations/, alembic.ini y 
+app/. No necesitas montarlos con volúmenes.
+
+
+¿Qué es un VOLUMEN y para qué sirve?
+Un volumen es un "puente" entre tu PC y el contenedor. Los cambios son BIDIRECCIONALES.
+
+Tu PC                    Contenedor
+./app/main.py    ←────→  /app/app/main.py
+  (cambias algo)          (se refleja al instante)
+
+en el YAML
+
+volumes:
+  - ./app:/app/app    # Hot reload: cambios en código sin rebuild
+
+
+¿Cuándo necesito limpiar y reconstruir?
+REGLA DE ORO:
+
+Cambio que hiciste				¿Necesitas rebuild?		¿Necesitas -v?				Comando
+Código Python (app/)					❌ No				❌ No			Solo guardar (hot reload)
+Estructura de tablas (modelos)			❌ No				⚠️ A veces		 alembic revision --autogenerate
+requirements.txt						✅ Sí				❌ No			docker-compose build
+Dockerfile								✅ Sí				❌ No			docker-compose build --no-cache
+docker-compose.yml						✅ Sí				❌ No			docker-compose up -d
+alembic.ini								❌ No				❌ No			Solo reiniciar API
+Datos de prueba (seed)					❌ No				✅ Sí			docker-compose down -v
+
+
+
+
+=====ACCIONES IMPORTANTES=====
+# ✅ Esto NO borra datos
+	docker-compose down
+	docker-compose up -d
+# Tus tablas y datos siguen intactos
+
+# ✅ Esto TAMPOCO borra datos (solo reconstruye la imagen)
+	docker-compose build --no-cache
+	docker-compose up -d
+# Tus tablas y datos siguen intactos
+
+# ❌ SOLO ESTO borra datos
+	docker-compose down -v
+# -v = elimina volúmenes = ADIÓS DATOS
+
+
+
+
+=====Tabla de supervivencia de datos=====
+Acción							¿Datos sobreviven?	¿Tablas sobreviven?
+docker-compose restart api				✅ Sí			✅ Sí
+docker-compose stop						✅ Sí			✅ Sí
+docker-compose down						✅ Sí			✅ Sí
+docker-compose down -v					❌ NO			❌ NO
+docker volume rm mi_smartgym_data		❌ NO			❌ NO
+
+
+
+
+
+
+=====lista de comandos esenciales de Docker===== 
+enfocada en el desarrollo con FastAPI, Pydantic y PostgreSQL 
+
+1. Comandos de Docker Compose (Desarrollo Diario)
+	✅ docker-compose up -d: Construye (si es necesario) y levanta todos los contenedores 
+	definidos en segundo plano (detached mode)
+	
+	✅ docker-compose up --build: Forza la reconstrucción de las imágenes antes de 
+	iniciar, útil si cambiaste dependencias (requirements.txt) o el 
+	Dockerfile.docker-compose down: Detiene y elimina contenedores, redes y 
+	volúmenes definidos en el archivo (excepto si son externos)
+	
+	✅ docker-compose down -v: Detiene los contenedores y elimina los volúmenes 
+	de datos (borra la base de datos PostgreSQL)
+
+	✅ docker-compose logs -f: Muestra los logs en tiempo real de todos los 
+	contenedores
+
+	✅ docker-compose logs -f app: Muestra los logs específicamente del contenedor 
+	de FastAPI
+
+	✅ docker-compose exec app bash: Accede a la terminal interactiva (bash o sh) 
+	dentro del contenedor de la aplicación para correr scripts de alembic o pytest.
+
+2. Comandos para PostgreSQL (Base de Datos)
+	✅ docker-compose exec db psql -U user -d dbname: Conecta al terminal psql de 
+	PostgreSQL dentro del contenedor db
+	
+	✅ docker exec -it <nombre_container_db> pg_dump -U user -d dbname > backup.sql: 
+	Realiza un respaldo (dump) de la base de datos a tu máquina local.
+	
+3. Comandos de Docker CLI (Imágenes y Contenedores)
+	✅ docker build -t fastapi-app .: Construye una imagen de Docker manualmente a 
+	partir de un Dockerfile.
+	
+	✅ docker run -d --name fastapi-app -p 8000:8000 fastapi-app: Ejecuta un contenedor 
+	basado en una imagen construida, mapeando puertos.
+	
+	✅ docker ps: Lista los contenedores en ejecución.
+	
+	✅ docker ps -a: Lista todos los contenedores (incluidos los detenidos).
+	
+	✅ docker images: Lista las imágenes de Docker descargadas o construidas localmente.
+	
+	✅ docker rm -f <id_o_nombre>: Fuerza la eliminación de un contenedor.
+	
+	✅ docker volume ls: Lista los volúmenes (donde se guardan los datos persistentes de Postgres).
+	
+4. Flujo de Trabajo Común
+	✅Levantar entorno: docker-compose up -d --build.
+	
+	✅ Ejecutar migraciones (Alembic): docker-compose exec app alembic upgrade head.
+	
+	✅ Verificar logs: docker-compose logs -f app.
+	
+	✅ Entrar a la BD: docker-compose exec db psql -U postgres.
+	
+	✅ Configuración RecomendadaDockerfile (FastAPI): Use 
+	CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"] para desarrollo.
+	
+	✅ Docker-compose: Use volumes para sincronizar su código local con el contenedor en tiempo real..
+	
+	✅ dockerignore: Asegúrese de excluir __pycache__, venv, y *.pyc para evitar conflictos.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
